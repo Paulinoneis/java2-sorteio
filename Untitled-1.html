@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio de Alunos</title>
+</head>
+<body>
+    <h1>Sorteio de Alunos</h1>
+    <input type="text" id="nomeAluno" placeholder="Digite o nome do aluno" />
+    <button onclick="adicionarAluno()">Adicionar Aluno</button>
+    
+    <h2>Lista de Alunos:</h2>
+    <ul id="listaAlunos"></ul>
+    
+    <button onclick="sortearAluno()">Sortear Aluno</button>
+    
+    <div id="resultado"></div>
+
+    <script>
+        let alunos = [];
+
+        function adicionarAluno() {
+            const nomeInput = document.getElementById('nomeAluno');
+            const nome = nomeInput.value.trim(); // Remove espaços em branco
+            
+            if (nome) { // Verifica se o nome não está vazio
+                alunos.push(nome); // Adiciona o nome ao array
+                nomeInput.value = ''; // Limpa o campo de entrada
+                atualizarLista(); // Atualiza a lista exibida
+            } else {
+                alert('Por favor, insira um nome!'); // Alerta se o campo estiver vazio
+            }
+        }
+ 
+        function atualizarLista() {
+            const lista = document.getElementById('listaAlunos');
+            lista.innerHTML = ''; // Limpa a lista existente
+            alunos.forEach(aluno => {
+                const li = document.createElement('li'); // Cria um novo item de lista
+                li.textContent = aluno; // Define o texto do item
+                lista.appendChild(li); // Adiciona o item à lista
+            });
+        }
+
+        function sortearAluno() {
+            if (alunos.length === 0) {
+                alert('Adicione alunos antes de sortear!'); // Verifica se a lista está vazia
+                return;
+            }
+            const alunoSorteado = alunos[Math.floor(Math.random() * alunos.length)]; // Sorteia um aluno
+            document.getElementById('resultado').textContent = `Aluno sorteado: ${alunoSorteado}`; // Exibe o resultado
+        }
+    </script>
+</body>
+</html>
